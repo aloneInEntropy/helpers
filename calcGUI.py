@@ -203,7 +203,7 @@ btn_font = tkFont.Font(family='Yu Gothic', size=12, weight="bold")
 # Labels
 clc_title = tk.Label(
     master=root, 
-    text="Group 19 Calculator", 
+    text="General Expression Calculator", 
     bg=default_colour, 
     font=ttl_font)
 
