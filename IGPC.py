@@ -1,4 +1,5 @@
 import fullCalc as fc
+import calcGUI as gfc
 import gauss_seidel as gs
 import matrixMult as mm
 
@@ -29,7 +30,18 @@ def main():
             continue
         match clc_mode:
             case 1:
-                fc.start()
+                op1 = True
+                while op1:
+                    tans = input("Start in GUI mode? [y/n] ")
+                    match tans.lower():
+                        case "y"| "yes":
+                            gfc.start()
+                            op1 = False
+                        case "n"| "no":
+                            fc.start()
+                            op1 = False
+                        case _:
+                            print("Invalid answer, please try again")
             case 2:
                 try:
                     gs.start()
