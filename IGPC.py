@@ -36,7 +36,7 @@ def main():
                 except SystemExit:
                     continue
             case 3:
-                print("(In development!)")
+                mm.start()
             case _:
                 print("Invalid choice, please try again")
 
