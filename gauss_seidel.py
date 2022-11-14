@@ -3,6 +3,9 @@ import time
 
 
 def main():
+    start()
+    
+def start():
     print(
         "Welcome to Iris' Gauss-Seidel matrix iterator!\n" +
         "Please don't make any mistakes; there's very little error checking going on here.\n" +
@@ -103,7 +106,7 @@ def gs_input():
 
 
 def gauss_seidel(a, x, b, iters):
-    """Take in a matrix `mat` and print out a formatted layout of its calculation with `iters` iterations."""
+    """Take in a matrix `a`, initial guesses `x`, and the solutions `b` to the matrix `a`, and print out a formatted layout of its calculation with `iters` iterations."""
 
     a2 = ""
     # calculation, taken from https://www.geeksforgeeks.org/gauss-seidel-method/
