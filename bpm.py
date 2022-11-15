@@ -9,6 +9,7 @@ def start():
     print("Welcome to my Basic Power Method calculator! You will need to enter two matrices here, " +
     "with both matrices having the same number of rows and \nthe second matrix having only 1 column.\n" +
     "If either of these are not true, the program will reset.\n")
+    
     iterate()
     
 def iterate():
@@ -17,9 +18,12 @@ def iterate():
     mat = combineMat(mat, mats) # matrix A
     x1 = combineMat(x1, x1s) # matrix x1
     dev = 0 # dominant eigenvalue
+    iters = input("How many iterations? ")
+    check_exit(iters)
+    
     
     prevX = x1
-    for _ in range(8):
+    for _ in range(int(iters)+1):
         # newX = [[prevX[0][0]*mat[0][0]+prevX[1][0]*mat[0][1]+prevX[2][0]*mat[0][2]],
         #         [prevX[0][0]*mat[1][0]+prevX[1][0]*mat[1][1]+prevX[2][0]*mat[1][2]],
         #         [prevX[0][0]*mat[2][0]+prevX[1][0]*mat[2][1]+prevX[2][0]*mat[2][2]]]
@@ -46,3 +50,4 @@ if __name__ == '__main__':
 # -7 13 -16
 # 13 -10 13
 # -16 13 -7
+# 7

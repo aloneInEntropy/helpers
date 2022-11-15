@@ -16,8 +16,11 @@ class InvalidInputException(Error):
     """When the user enters an invalid input according to whatever the used function dictates."""
     pass
 
+def check_exit(qs):
+    if qs in QUITS:
+        raise CancelOperation
 
-def buildMatrix(qt=QUITS, bind_r = -1, bind_c = -1):
+def buildMatrix(bind_r = -1, bind_c = -1):
     """
     Takes in user input and builds and returns a matrix.\n
     Returns a list containing the number of rows in the matrix, number of columns, the matrix itself [A], and the solutions [b].
@@ -25,9 +28,6 @@ def buildMatrix(qt=QUITS, bind_r = -1, bind_c = -1):
     `bind_c` to bind column length.
     """
 
-    def check_exit(qs):
-        if qs in qt:
-            raise CancelOperation
 
     def valid_char(c):
         return c in valid_chars
