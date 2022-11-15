@@ -1,4 +1,4 @@
-from univ import *
+from auxi import *
 
 def main():
     start()

@@ -1,6 +1,6 @@
 import sys
 import time
-from univ import *
+from auxi import *
 
 #TODO rewrite Univ.py and this file to work around errors, keeping the matrix builder in a separate file
 

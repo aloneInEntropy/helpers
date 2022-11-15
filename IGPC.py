@@ -2,7 +2,7 @@ import fullCalc as fc
 import calcGUI as gfc
 import gauss_seidel as gs
 import matrixMult as mm
-from univ import *
+from auxi import *
 
 
 intro_txt = """
