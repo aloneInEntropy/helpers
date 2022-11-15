@@ -8,6 +8,10 @@ Files added currently:
   - Calculator (fullCalc.py)
     - Takes in an expression by keyboard and solves it. Works with brackets, loge(x) and e^x expressions
     - Also has an accompanying GUI, in calcGUI.py
+  - Basic Power Method (bpm.py)
+    - Takes in 2 matrices by input and prints out the values at each iteration (steps not yet formatted).
+  - Matrix Multiplier (matrixMult.py)
+    - Takes in 2 matrices and multiplies them, printing out the result
   - Main GUI (IGPC.py)
     - The hub for the other calculators, currently CLI only
     - Allows the user to access calcGUI.py
@@ -15,5 +19,4 @@ Files added currently:
 
 Planned:
   - LU decomposition via Crout's method
-  - Matrix multiplier
   - GUIs for other screens
