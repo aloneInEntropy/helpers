@@ -13,8 +13,8 @@ def start():
     iterate()
     
 def iterate():
-    _, _, x1, x1s = buildMatrix(bind_c=1, bind_r=3) # temporary bindings
     _, _, mat, mats = buildMatrix(bind_r=3) # temporary bindings
+    _, _, x1, x1s = buildMatrix(bind_c=1, bind_r=3) # temporary bindings
     mat = combineMat(mat, mats) # matrix A
     x1 = combineMat(x1, x1s) # matrix x1
     dev = 0 # dominant eigenvalue
@@ -28,7 +28,8 @@ def iterate():
         #         [prevX[0][0]*mat[1][0]+prevX[1][0]*mat[1][1]+prevX[2][0]*mat[1][2]],
         #         [prevX[0][0]*mat[2][0]+prevX[1][0]*mat[2][1]+prevX[2][0]*mat[2][2]]]
         newX = dot(mat, prevX)
-        dev = amax(newX)
+        dev = max(newX.min(), newX.max(), key=abs)
+        # dev = newX[2][0] # this works too?? maybe???
         print(dev)
         for i in range(len(newX)):
             newX[i][0] /= dev
@@ -40,14 +41,26 @@ if __name__ == '__main__':
     main()
 
 # copy below test values and paste to autofill inputs (remove '#')
-# 1
-# 3
-# 1
-# -0.8
-# 0.9
 # 3
 # 3
 # -7 13 -16
 # 13 -10 13
 # -16 13 -7
+# 1
+# 3
+# 1
+# -0.8
+# 0.9
 # 7
+# _________________
+# 3
+# 3
+# 4 2 -2
+# -2 8 1
+# 2 4 -4
+# 1
+# 3
+# 1
+# 1
+# 1
+# 8
