@@ -66,8 +66,6 @@ def start():
                 clc_error["text"] = "WARNING: values over 16 digits may return incorrect answers due to floating-point arithmetic error"
             if len(clc_result["text"]) >= MAX_LEN:
                 clc_result["text"] = wrap(("{:e}".format(float(ans))), 20)
-            # else:
-            #     clc_error["text"] = ""
 
 
     def decr_dp():
@@ -153,13 +151,8 @@ def start():
     # set the position of the window to the center of the screen
     root.geometry(f'{window_width}x{window_height}+{cx}+{cy}')
 
-    # frm_entry = tk.Frame(master=root)
     root.config(bg=default_colour)
     clc_eq = tk.Entry(master=root, width=30)
-
-    # Layout the temperature Entry and Label in frm_entry
-    # using the .grid() geometry manager
-
 
     # All user buttons
     clc_col_mode = tk.Button(
