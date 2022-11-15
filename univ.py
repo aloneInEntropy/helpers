@@ -11,6 +11,10 @@ class Error(Exception):
 class CancelOperation(Error):
     pass
 
+class InvalidInputException(Error):
+    """When the user enters an invalid input"""
+    pass
+
 
 def buildMatrix(qt=QUITS):
     """
@@ -39,17 +43,20 @@ def buildMatrix(qt=QUITS):
         for i in range(int(rs)):
             eq = input(
                 "Please enter line {} of your matrix, separated by spaces: ".format(i+1))
+            if len(eq.split(' ')) != int(cs):
+                raise InvalidInputException
             check_exit(eq)
             for j in range(len(eq)):
                 if not (valid_char(eq[j])):
-                    print("Invalid character in matrix, exiting...")
-                    time.sleep(1)
-                    sys.exit()
+                    print("Invalid character in matrix, please try again...")
+                    raise InvalidInputException
             mat[i] = list(map(float, eq.split(" ")))[:-1]
             sltns.append(list(map(float, eq.split(" ")))[-1])
-    except Exception as e:
-        print(e, "\nInvalid character, exiting...")
+    except ValueError as e:
+        print(e, "\nInvalid character, please try again...")
         time.sleep(1)
         sys.exit()
+    
+    
 
     return (rs, cs, mat, sltns)

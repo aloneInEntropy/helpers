@@ -61,6 +61,9 @@ def gs_input():
             except CancelOperation:
                 print("Operation cancelled, exiting...")
                 return
+            except InvalidInputException:
+                print("Invalid input, please try again.")
+                continue
 
             if not check_dd(mat):
                 print(
@@ -94,6 +97,10 @@ def gs_input():
             print(e, "\nInvalid character, restarting...")
             time.sleep(1)
             sys.exit()
+        except IndexError as e:
+            print(e, "\nInvalid matrix dimensions, restarting...")
+            time.sleep(1)
+            continue
 
         gauss_seidel(mat, ig, sltns, iters)
 
