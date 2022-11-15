@@ -10,9 +10,9 @@ def start():
     "with both matrices having the same number of rows and \nthe second matrix having only 1 column.\n" +
     "If either of these are not true, the program will reset.\n")
     
-    iterate()
+    iterate_bpm()
     
-def iterate():
+def iterate_bpm():
     _, _, mat, mats = buildMatrix(bind_r=3) # temporary bindings
     _, _, x1, x1s = buildMatrix(bind_c=1, bind_r=3) # temporary bindings
     mat = combineMat(mat, mats) # matrix A

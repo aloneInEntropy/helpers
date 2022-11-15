@@ -1,8 +1,8 @@
 import fullCalc as fc
 import calcGUI as gfc
-import gauss_seidel as gs
+import gaussSeidel as gs
 import matrixMult as mm
-import bpm as pm
+import bpm
 from auxi import *
 
 
@@ -52,7 +52,7 @@ def main():
             case 3:
                 mm.start()
             case 4:
-                pm.start()
+                bpm.start()
             case _:
                 print("Invalid choice, please try again")
 
