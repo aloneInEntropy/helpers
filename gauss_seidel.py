@@ -1,6 +1,8 @@
 import sys
 import time
+from univ import *
 
+#TODO rewrite Univ.py and this file to work around errors, keeping the matrix builder in a separate file
 
 def main():
     start()
@@ -23,8 +25,8 @@ def valid_char(char):
     return char in valid_chars
 
 
-def check_exit(s, q):
-    if s == q:
+def check_exit(s):
+    if s in QUITS:
         print("Exiting...")
         time.sleep(1)
         sys.exit()
@@ -43,32 +45,22 @@ def check_dd(mat):
 
 
 def gs_input():
-    exit_string = "q"
-
     while True:
         print("Enter \"q\" at any point to quit.")
 
-        rs = input("How many rows? ")
-        check_exit(rs, exit_string)
-        cs = input("How many columns? ")
-        check_exit(cs, exit_string)
+        # rs = input("How many rows? ")
+        # check_exit(rs, exit_string)
+        # cs = input("How many columns? ")
+        # check_exit(cs, exit_string)
 
         try:
-            mat = [[0 for _ in range(int(cs))] for _ in range(int(rs))]
-            sltns = []
-
-            for i in range(int(rs)):
-                eq = input(
-                    "Please enter line {} of your matrix, separated by spaces: ".format(i+1))
-                if eq == exit_string:
-                    sys.exit()
-                for j in range(len(eq)):
-                    if not (valid_char(eq[j])):
-                        print("Invalid character in matrix, exiting...")
-                        time.sleep(1)
-                        sys.exit()
-                mat[i] = list(map(float, eq.split(" ")))[:-1]
-                sltns.append(list(map(float, eq.split(" ")))[-1])
+            try:
+                rs, cs, mat, sltns = buildMatrix()
+            except SystemExit:
+                continue
+            except CancelOperation:
+                print("Operation cancelled, exiting...")
+                return
 
             if not check_dd(mat):
                 print(
@@ -77,7 +69,7 @@ def gs_input():
                 print("\nYour matrix is diagonally dominant and will converge.\n")
 
             iters = input("How many iterations? ")
-            check_exit(iters, exit_string)
+            check_exit(iters)
             iters = int(iters)
 
             # dp = input("How many decimal places? ")
@@ -86,19 +78,20 @@ def gs_input():
             # dp = int(dp)
 
             ig = input("Initial Guesses(x1 x2 ... xn)? (\"n\" for 0s) ")
-            check_exit(ig, exit_string)
+            check_exit(ig)
             if ig == "n" or ig == "N":
                 ig = []
-                for j in range(int(cs)):
+                for _ in range(int(cs)):
                     ig.append(0)
             else:
-                if not (valid_char(ig[i])):
-                    print("Invalid character in guesses, exiting...")
-                    time.sleep(1)
-                    sys.exit()
+                for i in range(len(ig)):
+                    if not (valid_char(ig[i])):
+                        print("Invalid character in guesses, restarting...")
+                        time.sleep(1)
+                        sys.exit()
                 ig = list(map(float, ig.split(" ")))
-        except Exception as e:
-            print(e, "\nInvalid character, exiting...")
+        except ValueError as e:
+            print(e, "\nInvalid character, restarting...")
             time.sleep(1)
             sys.exit()
 

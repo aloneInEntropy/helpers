@@ -7,6 +7,7 @@ def main():
 
 def start():
     root = tk.Tk()
+    
     # Set up the window
     root.title("Calculator")
     # root.resizable(width=False, height=False)
@@ -254,8 +255,14 @@ def start():
     clc_error.place(relx=.5, rely=.45, anchor='center')
     clc_col_mode.place(relx=.95, rely=.9, anchor='center')
 
+    
+    # send gui to front
+    root.lift()
+    root.attributes('-topmost',True)
+    root.after_idle(root.attributes,'-topmost',False)
+    root.focus_force()
     clc_eq.focus_set() # focus the equation entry on load
-
+    # win32gui.SetForegroundWindow(root.winfo_id())
     # Run the application
     root.mainloop()
 

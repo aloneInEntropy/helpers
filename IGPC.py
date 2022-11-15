@@ -2,6 +2,8 @@ import fullCalc as fc
 import calcGUI as gfc
 import gauss_seidel as gs
 import matrixMult as mm
+from univ import *
+
 
 intro_txt = """
 To start, please select a calculator mode [1-3]:
@@ -15,15 +17,13 @@ Or enter 'q' to quit.
 def main():
     print("Welcome to my General-Purpose Calculator!")
 
-    quit = ("q", "quit", "Q", "QUIT", "exit")
-
     while True:
         print(intro_txt)
         clc_mode = input()
         try:
             clc_mode = int(clc_mode)
         except:
-            if clc_mode in quit:
+            if clc_mode in QUITS:
                 print("Exiting...")
                 break
             print("Invalid option")
