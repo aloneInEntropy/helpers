@@ -19,4 +19,6 @@ Files added currently:
 
 Planned:
   - LU decomposition via Crout's method
+  - Best fit with least squares
+    - A graphing utility (using numpy) for a future GUI
   - GUIs for other screens

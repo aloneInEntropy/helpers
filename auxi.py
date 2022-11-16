@@ -58,7 +58,7 @@ def buildMatrix(bind_r = -1, bind_c = -1):
             mat[i] = list(map(float, eq.split(" ")))[:-1]
             sltns.append(list(map(float, eq.split(" ")))[-1])
     except ValueError as e:
-        print(e, "\nInvalid character, please try again...")
+        print(e, "\nInvalid matrix, please try again...")
         time.sleep(1)
         return
     
