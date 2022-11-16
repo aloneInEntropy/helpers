@@ -13,29 +13,33 @@ def start():
     iterate_bpm()
     
 def iterate_bpm():
-    _, _, mat, mats = buildMatrix(bind_r=3) # temporary bindings
-    _, _, x1, x1s = buildMatrix(bind_c=1, bind_r=3) # temporary bindings
-    mat = combineMat(mat, mats) # matrix A
-    x1 = combineMat(x1, x1s) # matrix x1
-    dev = 0 # dominant eigenvalue
-    iters = input("How many iterations? ")
-    check_exit(iters)
-    
-    
-    prevX = x1
-    for _ in range(int(iters)+1):
-        # newX = [[prevX[0][0]*mat[0][0]+prevX[1][0]*mat[0][1]+prevX[2][0]*mat[0][2]],
-        #         [prevX[0][0]*mat[1][0]+prevX[1][0]*mat[1][1]+prevX[2][0]*mat[1][2]],
-        #         [prevX[0][0]*mat[2][0]+prevX[1][0]*mat[2][1]+prevX[2][0]*mat[2][2]]]
-        newX = dot(mat, prevX)
-        dev = max(newX.min(), newX.max(), key=abs)
-        # dev = newX[2][0] # this works too?? maybe???
-        print(dev)
-        for i in range(len(newX)):
-            newX[i][0] /= dev
-        print(newX)
-        prevX = newX
-
+    try:
+        _, _, mat, mats = buildMatrix(bind_r=3) # temporary bindings
+        _, _, x1, x1s = buildMatrix(bind_c=1, bind_r=3) # temporary bindings
+        mat = combineMat(mat, mats) # matrix A
+        x1 = combineMat(x1, x1s) # matrix x1
+        dev = 0 # dominant eigenvalue
+        iters = input("How many iterations? ")
+        check_exit(iters)
+        
+        
+        prevX = x1
+        for _ in range(int(iters)+1):
+            # newX = [[prevX[0][0]*mat[0][0]+prevX[1][0]*mat[0][1]+prevX[2][0]*mat[0][2]],
+            #         [prevX[0][0]*mat[1][0]+prevX[1][0]*mat[1][1]+prevX[2][0]*mat[1][2]],
+            #         [prevX[0][0]*mat[2][0]+prevX[1][0]*mat[2][1]+prevX[2][0]*mat[2][2]]]
+            newX = dot(mat, prevX)
+            dev = max(newX.min(), newX.max(), key=abs)
+            # dev = newX[2][0] # this works too?? maybe???
+            print(dev)
+            for i in range(len(newX)):
+                newX[i][0] /= dev
+            print(newX)
+            prevX = newX
+    except InvalidInputException:
+        print("Invalid input")
+    except CancelOperation:
+        return
 
 if __name__ == '__main__':
     main()

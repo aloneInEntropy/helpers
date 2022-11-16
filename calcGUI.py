@@ -14,9 +14,9 @@ def start():
 
     window_width = 800
     window_height = 400
-    dp = 3  # decimal places in the result
     MAX_DP = 50
     MAX_LEN = 65
+    dp = 3  # decimal places in the result
     dark_mode = False
     default_colour = "#F0F0F0"
     dark_colour = "#333333"
@@ -42,12 +42,12 @@ def start():
                 clc_error["text"] = "WARNING: values over 16 digits may return incorrect answers due to floating-point arithmetic error"
             if len(clc_result["text"]) >= MAX_LEN:
                 clc_result["text"] = wrap(("{:e}".format(float(ans))), 20)
-        global dp
+        nonlocal dp
         dp = 3
 
 
     def incr_dp():
-        global dp
+        nonlocal dp
         eq = clc_eq.get()
         ans = fc.solve(eq)
         if ans[0] == "I":
@@ -69,7 +69,7 @@ def start():
 
 
     def decr_dp():
-        global dp
+        nonlocal dp
         eq = clc_eq.get()
         ans = fc.solve(eq)
         if ans[0] == "I":
@@ -105,7 +105,7 @@ def start():
 
 
     def invert_colour_mode():
-        global dark_mode
+        nonlocal dark_mode
         dark_mode = not dark_mode
         if dark_mode:
             root.config(bg=dark_colour)
