@@ -8,11 +8,9 @@ def main():
     
 def start():
     print("Please enter the first matrix.")
-    _, _, mata, sa = buildMatrix() # matrix a
+    a = buildMatrix()[-1] # matrix a
     print("Please enter the second matrix.")
-    _, _, matb, sb = buildMatrix() # matrix b
-    a = combineMatrices(mata, sa)
-    b = combineMatrices(matb, sb)
+    b = buildMatrix()[-1] # matrix b
     
     print(dot(a, b))
     

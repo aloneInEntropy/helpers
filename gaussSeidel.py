@@ -51,7 +51,7 @@ def gs_input():
 
         try:
             try:
-                _, cs, mat, sltns = buildMatrix()
+                _, cs, mat, sltns = buildPartialMatrix()
             except SystemExit:
                 continue
             except CancelOperation:

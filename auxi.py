@@ -3,7 +3,7 @@
 import time
 # import sys
 
-QUITS = ("q", "quit", "Q", "QUIT", "exit")
+QUITS = ("q", "quit", "exit")
 
 
 class Error(Exception):
@@ -21,12 +21,14 @@ class InvalidInputException(Error):
     pass
 
 
-def check_exit(qs):
-    if qs in QUITS:
+def check_exit(qs:str):
+    """Check if a given string is an exit string"""
+    
+    if qs.lower() in QUITS:
         raise CancelOperation
 
 
-def buildMatrix(bind_r=-1, bind_c=-1):
+def buildPartialMatrix(bind_r=-1, bind_c=-1):
     """
     Takes in user input and builds and returns a matrix and its solutions.\n
     Returns a tuple containing the number of rows in the matrix, number of columns, the matrix itself [A], and the solutions [b].
@@ -42,14 +44,17 @@ def buildMatrix(bind_r=-1, bind_c=-1):
                    "6", "7", "8", "9", "0", ".", "-", " "]
 
     try:
-        cs = int(input("How many columns? "))
+        cs = input("How many columns? ")
         check_exit(cs)
         if bind_c != -1:
             cs = bind_c
-        rs = int(input("How many rows? "))
+        rs = input("How many rows? ")
         check_exit(rs)
         if bind_r != -1:
             rs = bind_r
+            
+        cs = int(cs)
+        rs = int(rs)
 
         mat = [[0 for _ in range(cs)] for _ in range(rs)]
         sltns = []
@@ -81,10 +86,10 @@ def combineMatrices(a: list[list[int]], b: list[list[int]]):
     return c
 
 
-def buildFullMatrix(bind_r=-1, bind_c=-1):
-    """Build a full matrix, with the expressions and solutions combined"""
+def buildMatrix(bind_r=-1, bind_c=-1):
+    """Build a full matrix using user input, with the expressions and solutions combined"""
 
-    m = buildMatrix(bind_c=bind_c, bind_r=bind_r)
+    m = buildPartialMatrix(bind_c=bind_c, bind_r=bind_r)
     return m[0], m[1], combineMatrices(m[2], m[3])
 
 
@@ -106,7 +111,7 @@ def prettifyMatrix(mat: list[list]) -> str:
             s += str(mat[r][c]).center(ml)  # actual values
             if c == len(mat[r]) - 1:
                 s += " |"  # right border
-            s += '\t'
+            s += '  '
         s += '\n'
 
     return s[:-1]

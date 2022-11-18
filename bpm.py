@@ -19,11 +19,12 @@ def iterate_bpm():
     
     try:
         # bindings here are temporary
-        mat = buildFullMatrix(bind_r=3)[-1] # matrix A
-        x1= buildFullMatrix(bind_c=1, bind_r=3)[-1] # matrix x1
+        mat = buildMatrix(bind_r=3)[-1] # matrix A
+        x1= buildMatrix(bind_c=1, bind_r=3)[-1] # matrix x1
         dev = 0 # dominant eigenvalue
         iters = input("How many iterations? ")
         check_exit(iters)
+        
         
         
         prevX = x1
@@ -35,6 +36,7 @@ def iterate_bpm():
             for i in range(len(newX)):
                 newX[i][0] /= dev
             print(prettifyMatrix(newX), '\n')
+            print(newX, '\n')
             prevX = newX
     except InvalidInputException:
         print("Invalid input")
