@@ -1,5 +1,7 @@
+"""Basic Power Method. Calculating the largest eigenvalue and its eigenvector in a matrix."""
+
 from auxi import *
-from numpy import amax, dot
+from numpy import dot
 
 def main():
     start()
@@ -13,28 +15,26 @@ def start():
     iterate_bpm()
     
 def iterate_bpm():
+    """Iterate over the given matrices and calculate the eigenvalues and eigenvectors for them."""
+    
     try:
-        _, _, mat, mats = buildMatrix(bind_r=3) # temporary bindings
-        _, _, x1, x1s = buildMatrix(bind_c=1, bind_r=3) # temporary bindings
-        mat = combineMat(mat, mats) # matrix A
-        x1 = combineMat(x1, x1s) # matrix x1
+        # bindings here are temporary
+        mat = buildFullMatrix(bind_r=3)[-1] # matrix A
+        x1= buildFullMatrix(bind_c=1, bind_r=3)[-1] # matrix x1
         dev = 0 # dominant eigenvalue
         iters = input("How many iterations? ")
         check_exit(iters)
         
         
         prevX = x1
-        for _ in range(int(iters)+1):
-            # newX = [[prevX[0][0]*mat[0][0]+prevX[1][0]*mat[0][1]+prevX[2][0]*mat[0][2]],
-            #         [prevX[0][0]*mat[1][0]+prevX[1][0]*mat[1][1]+prevX[2][0]*mat[1][2]],
-            #         [prevX[0][0]*mat[2][0]+prevX[1][0]*mat[2][1]+prevX[2][0]*mat[2][2]]]
-            newX = dot(mat, prevX)
-            dev = max(newX.min(), newX.max(), key=abs)
-            # dev = newX[2][0] # this works too?? maybe???
+        for it in range(int(iters)+1):
+            newX = dot(mat, prevX) # multiply matrices
+            dev = max(newX.min(), newX.max(), key=abs) # find largest magnitude
+            print('i =', it)
             print(dev)
             for i in range(len(newX)):
                 newX[i][0] /= dev
-            print(newX)
+            print(prettifyMatrix(newX), '\n')
             prevX = newX
     except InvalidInputException:
         print("Invalid input")

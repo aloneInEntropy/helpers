@@ -1,3 +1,5 @@
+"""Gauss-Seidel matrix iterator. An iterative method of solving a system of linear equations."""
+
 import sys
 import time
 from auxi import *

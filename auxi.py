@@ -1,47 +1,55 @@
+"""Auxiliary code. Contains custom functions and exceptions."""
+
 import time
-import sys
+# import sys
 
 QUITS = ("q", "quit", "Q", "QUIT", "exit")
+
 
 class Error(Exception):
     """Basic class."""
     pass
 
+
 class CancelOperation(Error):
     """To exit out of a module without exiting the overall program."""
     pass
+
 
 class InvalidInputException(Error):
     """When the user enters an invalid input according to whatever the used function dictates."""
     pass
 
+
 def check_exit(qs):
     if qs in QUITS:
         raise CancelOperation
 
-def buildMatrix(bind_r = -1, bind_c = -1):
-    """
-    Takes in user input and builds and returns a matrix.\n
-    Returns a list containing the number of rows in the matrix, number of columns, the matrix itself [A], and the solutions [b].
-    Optionally binds the dimensions of the entered matrix using the controls `bind_r` to bind row length and 
-    `bind_c` to bind column length. If the given row or column is longer than the bound value, they are truncated to fit.
-    """
 
+def buildMatrix(bind_r=-1, bind_c=-1):
+    """
+    Takes in user input and builds and returns a matrix and its solutions.\n
+    Returns a tuple containing the number of rows in the matrix, number of columns, the matrix itself [A], and the solutions [b].
+    Optionally binds the dimensions of the entered matrix using the controls `bind_r` to bind row length and 
+    `bind_c` to bind column length. If the given row is longer than the bound value, an InvalidInputException is raised.
+    """
+    
 
     def valid_char(c):
         return c in valid_chars
 
     valid_chars = ["1", "2", "3", "4", "5",
                    "6", "7", "8", "9", "0", ".", "-", " "]
-    
-    
+
     try:
         cs = int(input("How many columns? "))
         check_exit(cs)
-        if bind_c != -1: cs = bind_c
+        if bind_c != -1:
+            cs = bind_c
         rs = int(input("How many rows? "))
         check_exit(rs)
-        if bind_r != -1: rs = bind_r
+        if bind_r != -1:
+            rs = bind_r
 
         mat = [[0 for _ in range(cs)] for _ in range(rs)]
         sltns = []
@@ -61,14 +69,44 @@ def buildMatrix(bind_r = -1, bind_c = -1):
         print(e, "\nInvalid matrix, please try again...")
         time.sleep(1)
         return
-    
 
     return rs, cs, mat, sltns
 
-def combineMat(a: list[list[int]], b: list[list[int]]):
+
+def combineMatrices(a: list[list[int]], b: list[list[int]]):
     """Combine two matrices by adding each row in `b` to the row in `a`. Both `a` and `b` MUST have the same number of rows."""
     c = a
     for i in range(len(a)):
         c[i].append(b[i])
     return c
-        
+
+
+def buildFullMatrix(bind_r=-1, bind_c=-1):
+    """Build a full matrix, with the expressions and solutions combined"""
+
+    m = buildMatrix(bind_c=bind_c, bind_r=bind_r)
+    return m[0], m[1], combineMatrices(m[2], m[3])
+
+
+def prettifyMatrix(mat: list[list]) -> str:
+    """Prettify and align a matrix"""
+
+    s = ''
+    ml = 0
+
+    for r in mat:
+        for c in r:
+            if len(str(c)) > ml:
+                ml = len(str(c))  # max length to center matrix values by
+
+    for r in range(len(mat)):
+        for c in range(len(mat[r])):
+            if c == 0:
+                s += "| "  # left border
+            s += str(mat[r][c]).center(ml)  # actual values
+            if c == len(mat[r]) - 1:
+                s += " |"  # right border
+            s += '\t'
+        s += '\n'
+
+    return s[:-1]
