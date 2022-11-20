@@ -1,32 +1,22 @@
-"""Auxiliary code. Contains custom functions and exceptions."""
+"""Matrix multiplier."""
 
-import time
-# import sys
+
+from numpy import dot
 
 QUITS = ("q", "quit", "exit")
-GAP = "  "
 
 
-class Error(Exception):
-    """Basic class."""
-    pass
+def main():
+    start()
 
 
-class CancelOperation(Error):
-    """To exit out of a module without exiting the overall program."""
-    pass
+def start():
+    print("Please enter the first matrix.")
+    a = buildMatrix()[-1]  # matrix a
+    print("Please enter the second matrix.")
+    b = buildMatrix()[-1]  # matrix b
 
-
-class InvalidInputException(Error):
-    """When the user enters an invalid input according to whatever the used function dictates."""
-    pass
-
-
-def check_exit(qs: str):
-    """Check if a given string is an exit string"""
-
-    if qs.lower() in QUITS:
-        raise CancelOperation
+    print(dot(a, b))
 
 
 def buildPartialMatrix(bind_r=-1, bind_c=-1):
@@ -63,16 +53,15 @@ def buildPartialMatrix(bind_r=-1, bind_c=-1):
             eq = input(
                 "Please enter line {} of your matrix, separated by spaces: ".format(i+1))
             if len(eq.split(' ')) != cs:
-                raise InvalidInputException
+                raise Exception
             check_exit(eq)
             for j in range(len(eq)):
                 if not (valid_char(eq[j])):
-                    raise InvalidInputException
+                    raise Exception
             mat[i] = list(map(float, eq.split(" ")))[:-1]
             sltns.append(list(map(float, eq.split(" ")))[-1])
     except ValueError as e:
         print(e, "\nInvalid matrix, please try again...")
-        time.sleep(1)
         return
 
     return rs, cs, mat, sltns
@@ -93,42 +82,12 @@ def combineMatrices(a: list[list[int]], b: list[list[int]]):
     return c
 
 
-def prettifyMatrix(mat: list[list]) -> str:
-    """Prettify and align a matrix"""
+def check_exit(qs: str):
+    """Check if a given string is an exit string"""
 
-    s = ''
-    ml = 0
-
-    for r in mat:
-        for c in r:
-            if len(str(c)) > ml:
-                ml = len(str(c))  # max length to center matrix values by
-
-    for r in range(len(mat)):
-        for c in range(len(mat[r])):
-            if c == 0:
-                s += "| "  # left border
-            s += str(mat[r][c]).center(ml)  # actual values
-            if c == len(mat[r]) - 1:
-                s += " |"  # right border
-            s += '  '
-        s += '\n'
-
-    return s[:-1]
+    if qs.lower() in QUITS:
+        raise Exception
 
 
-def transitionMatrices(a: list[list[int]], b: list[list[int]], v="", label_a="", label_b="") -> str:
-    """Create a transition between matrix `a` and `b` during a normalisation.
-    `label_a` adds a label to the vector multiplied by `a`, and `label_b` adds a label to the resulting vector. `v` 
-    is the resulting value from the normalisation, but must be passed through like the labels."""
-
-    nv = len(v)
-    ma = prettifyMatrix(a).split('\n')
-    mb = prettifyMatrix(b).split('\n')
-    s = ""
-    for i in range(len(ma)):
-        if i == len(ma)//2:
-            s += ma[i] + label_a + "=> " + v + GAP + mb[i] + label_b + "\n"
-        else:
-            s += ma[i] + GAP*2 + " "*len(label_a) + " "*nv + " " + mb[i] + "\n"
-    return s
+if __name__ == '__main__':
+    main()

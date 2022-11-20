@@ -25,18 +25,24 @@ def iterate_bpm():
         iters = input("How many iterations? ")
         check_exit(iters)
         
-        
+        # print(prettifyMatrix(mat), "\n\n")
+        # print(prettifyMatrix(x1), "\n\n")
         
         prevX = x1
-        for it in range(int(iters)+1):
+        for it in range(int(iters)):
             newX = dot(mat, prevX) # multiply matrices
             dev = max(newX.min(), newX.max(), key=abs) # find largest magnitude
-            print('i =', it)
-            print(dev)
+            tX = newX.copy()
+            
+            # print(prettifyMatrix(newX), '\n')
+            print('i =', it+1)
+            # print(dev)
             for i in range(len(newX)):
-                newX[i][0] /= dev
-            print(prettifyMatrix(newX), '\n')
-            print(newX, '\n')
+                newX[i][0] = float(format(newX[i][0] / dev, '.4f'))
+            # print(prettifyMatrix(newX), '\n')
+            # print(newX, '\n')
+            # print(transitionMatrices(tX, newX, '{:.4f}'.format(dev), "/ " + str(dev) + " ", "= x" + str(it+1)))
+            print(transitionMatrices(mat, newX, '{:.4f}'.format(dev), "* x" + str(it+1) + " ", "= x" + str(it+2)))
             prevX = newX
     except InvalidInputException:
         print("Invalid input")
