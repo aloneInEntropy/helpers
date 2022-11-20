@@ -27,6 +27,7 @@ valid_chars = ["(", ")", "."]
 order = [["+", "-"], ["*", "/"], ["^"]]
 euler = str(e)  # euler = e = 2.718281828...
 disp_power_disc = False # display power discrepancy (0^0 returns 1, but should return an error)
+power_disc_msg = "NOTE: this is considered undefined on standard calculators."
 # # maximum allowed amount of iterations before returning an error (e.g., "3(*4)")
 # MAX_ITER = 100
 # c_iter = 1
@@ -68,6 +69,7 @@ def sub_calc(a, b, op):
         case "^":
             if a == 0 and b == 0:
                 disp_power_disc = True  # display power discrepancy
+                print(power_disc_msg)
             return a**b
         case _:
             return None  # shouldn't be reached due to validate()

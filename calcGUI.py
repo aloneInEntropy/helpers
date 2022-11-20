@@ -23,6 +23,7 @@ def start():
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     empty_response = ""
+    floating_error_msg = "WARNING: values over 16 digits may return incorrect answers due to floating-point arithmetic error."
 
 
     def user_solve():
@@ -34,12 +35,12 @@ def start():
         else:
             clc_result["text"] = wrap(ans, 20)
             if fc.disp_power_disc:
-                clc_error["text"] = "NOTE: this is considered undefined on standard calculators."
+                clc_error["text"] = fc.power_disc_msg
                 fc.disp_power_disc = False
             else:
                 clc_error["text"] = ""
             if len(clc_result["text"]) > 17 and len(clc_result["text"]) < MAX_LEN: 
-                clc_error["text"] = "WARNING: values over 16 digits may return incorrect answers due to floating-point arithmetic error"
+                clc_error["text"] = floating_error_msg
             if len(clc_result["text"]) >= MAX_LEN:
                 clc_result["text"] = wrap(("{:e}".format(float(ans))), 20)
         nonlocal dp
@@ -58,12 +59,12 @@ def start():
                 dp += 1
             clc_result["text"] = wrap(fc.solve(eq, dp), 20)
             if fc.disp_power_disc:
-                clc_error["text"] = "NOTE: this is considered undefined on standard calculators."
+                clc_error["text"] = fc.power_disc_msg
                 fc.disp_power_disc = False
             else:
                 clc_error["text"] = ""
             if len(clc_result["text"]) > 17 and len(clc_result["text"]) < MAX_LEN: 
-                clc_error["text"] = "WARNING: values over 16 digits may return incorrect answers due to floating-point arithmetic error"
+                clc_error["text"] = floating_error_msg
             if len(clc_result["text"]) >= MAX_LEN:
                 clc_result["text"] = wrap(("{:e}".format(float(ans))), 20)
 
@@ -80,12 +81,12 @@ def start():
                 dp -= 1
             clc_result["text"] = wrap(fc.solve(eq, dp), 20)
             if fc.disp_power_disc:
-                clc_error["text"] = "NOTE: this is considered undefined on standard calculators."
+                clc_error["text"] = fc.power_disc_msg
                 fc.disp_power_disc = False
             else:
                 clc_error["text"] = ""
             if len(clc_result["text"]) > 17 and len(clc_result["text"]) < MAX_LEN: 
-                clc_error["text"] = "WARNING: values over 16 digits may return incorrect answers due to floating-point arithmetic error"
+                clc_error["text"] = floating_error_msg
             if len(clc_result["text"]) >= MAX_LEN:
                 clc_result["text"] = wrap(("{:e}".format(float(ans))), 20)
 
