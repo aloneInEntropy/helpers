@@ -110,7 +110,7 @@ def validate(eq: str):
                 return "Invalid: Illegal position for decimal point (.)"
         if i < len(eq) - 1 and eq[i] == ")" and isNum(eq[i+1]):
             return "Invalid: Number after parenthesis has no preceeding operator"
-        if i < len(eq) - 1 and eq[i] == "(" and eq[i+1] in valid_ops:
+        if i < len(eq) - 1 and eq[i] == "(" and eq[i+1] in valid_ops and eq[i+1] != '-':
             return "Invalid: Parenthesis cannot start with an operator"
         if i > 0 and eq[i] == ")" and eq[i-1] in valid_ops:
             return "Invalid: Parenthesis cannot end with an operator"
@@ -280,6 +280,9 @@ def normalise(eq: str):
                     eq = eq[:i] + str(log(float(calc(eq[i+3:p])))) + eq[p:]
                 except:
                     return "Invalid: log must be positive real number"
+                
+    if eq.find("--") == 0:
+        eq = eq[1:]
 
     teq = eq[0]
     i = 0

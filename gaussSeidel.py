@@ -29,8 +29,8 @@ def valid_char(char):
 def check_exit(s):
     if s in QUITS:
         print("Exiting...")
-        time.sleep(1)
-        sys.exit()
+        # time.sleep(1)
+        raise CancelOperation
 
 
 def check_dd(mat):

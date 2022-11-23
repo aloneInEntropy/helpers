@@ -246,7 +246,7 @@ def start():
     clc_result.place(relx=.8, rely=.375, anchor='center')
     clc_incrdp.place(relx=.685, rely=.35, anchor='center')
     clc_decrdp.place(relx=.915, rely=.35, anchor='center')
-    clc_error.place(relx=.5, rely=.45, anchor='center')
+    clc_error.place(relx=.5, rely=.455, anchor='center')
     clc_col_mode.place(relx=.95, rely=.9, anchor='center')
 
     

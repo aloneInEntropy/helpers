@@ -132,3 +132,91 @@ def transitionMatrices(a: list[list[int]], b: list[list[int]], v="", label_a="",
         else:
             s += ma[i] + GAP*2 + " "*len(label_a) + " "*nv + " " + mb[i] + "\n"
     return s
+
+
+def distanceToValueInMatrix(mat: list[list[int]], target: int) -> list[list[int]]:
+    """Given a matrix, return a normalised matrix with distances to the nearest specified value"""
+
+    nm = [[-1 for _ in range(len(mat[0]))] for _ in range(len(mat))]
+    r, c = 0, 0
+
+    for r in range(len(mat)):
+        for c in range(len(mat[r])):
+            if mat[r][c] == target:
+                nm[r][c] = 0
+            else:
+                nm[r][c] = updateClosestDistance(nm, r, c)
+
+    for r in range(len(mat)-1, -1, -1):
+        for c in range(len(mat[r])-1, -1, -1):
+            if mat[r][c] == target:
+                nm[r][c] = 0
+            else:
+                nm[r][c] = updateClosestDistance(nm, r, c)
+
+    return nm
+
+
+def updateClosestDistance(mat: list[list[int]], r: int, c: int) -> int:
+    """Given a matrix and point (r, c), return the smallest value surrounding the point + 1, and -1 if all values are -1"""
+
+    adj = []
+
+    # below
+    if r >= 0:
+        if len(mat) > 1 and r < len(mat) - 1:
+            if mat[r+1][c] != -1:
+                adj.append(mat[r+1][c])
+
+    # right
+    if c >= 0:
+        if len(mat[r]) > 1 and c < len(mat[r]) - 1:
+            if mat[r][c+1] != -1:
+                adj.append(mat[r][c+1])
+
+    # left
+    if c <= len(mat[0]) - 1:
+        if len(mat[r]) > 1 and c >= 1:
+            if mat[r][c-1] != -1:
+                adj.append(mat[r][c-1])
+
+    # above
+    if r <= len(mat) - 1:
+        if len(mat) > 1 and r >= 1:
+            if mat[r-1][c] != -1:
+                adj.append(mat[r-1][c])
+
+    # above-right
+    if r <= len(mat) - 1 and c >= 0:
+        if len(mat) > 1 and r >= 1 and c < len(mat[r]) - 1:
+            if mat[r-1][c+1] != -1:
+                adj.append(mat[r-1][c+1])
+
+    # above-left
+    if r <= len(mat) - 1 and c <= len(mat[0]) - 1:
+        if len(mat) > 1 and r >= 1 and c >= 1:
+            if mat[r-1][c-1] != -1:
+                adj.append(mat[r-1][c-1])
+
+    # below-right
+    if r >= 0 and c >= 0:
+        if len(mat) > 1 and r < len(mat) - 1 and c < len(mat[r]) - 1:
+            if mat[r+1][c+1] != -1:
+                adj.append(mat[r+1][c+1])
+
+    # below-left
+    if r >= 0 and c <= len(mat[0]) - 1:
+        if len(mat) > 1 and r < len(mat) - 1 and c >= 1:
+            if mat[r+1][c-1] != -1:
+                adj.append(mat[r+1][c-1])
+
+    if len(adj) == 0:
+        return -1
+    return min(adj) + 1
+
+
+def printMatrix(mat: list[list[int]]):
+    """Print a matrix line by line (unprettified)"""
+
+    for i in mat:
+        print(i)

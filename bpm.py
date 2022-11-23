@@ -26,18 +26,23 @@ def iterate_bpm():
         check_exit(iters)
 
         prevX = x1
-        for it in range(int(iters)):
+        it = 0
+        while it < int(iters):
+            if it > 0: 
+                print(transitionMatrices(tX, newX, '{:.4f}'.format(dev), "/ " + str(dev) + " ", "= x" + str(it+1)))
             newX = dot(mat, prevX) # multiply matrices
             dev = max(newX.min(), newX.max(), key=abs) # find largest magnitude
-            # tX = newX.copy()
+            tX = newX.copy()
             
             print('i =', it+1)
             for i in range(len(newX)):
                 newX[i][0] = float(format(newX[i][0] / dev, '.4f'))
-            
-            # print(transitionMatrices(tX, newX, '{:.4f}'.format(dev), "/ " + str(dev) + " ", "= x" + str(it+1)))
-            print(transitionMatrices(mat, newX, '{:.4f}'.format(dev), "* x" + str(it+1) + " ", "= x" + str(it+2)))
+                
+            print(transitionMatrices(mat, tX, v='', label_a="* x" + str(it+1) + " "))
             prevX = newX
+            
+            it += 1
+        print(transitionMatrices(tX, newX, '{:.4f}'.format(dev), "/ " + str(dev) + " ", "= x" + str(it+1)))
     except InvalidInputException:
         print("Invalid input")
     except CancelOperation:
