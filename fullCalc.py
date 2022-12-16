@@ -75,10 +75,20 @@ def sub_calc(a, b, op):
             return None  # shouldn't be reached due to validate()
 
 
-def validate(eq: str):
-    """Checks and returns a value based on whether or not the given expression is valid or not. 
+def validate(eq: str) -> str:
+    """Validate the expression `eq`\n          
+    
+    - -
+    Parameters:
+        - `(str) eq`: the expression to be validated
+    - -
+    Returns:
+        - `(str)`: the response; whether or not the expression is valid
+    - -
+    Checks and returns a value based on whether or not the given expression is valid or not. 
     If is it valid, it returns the equation with '!' prefixed to it to indicate it passed.
-    Otherwise, it returns an error message."""
+    Otherwise, it returns an error message.
+    """
 
     if eq == "":
         return "Invalid: Expressions cannot be empty"
@@ -132,14 +142,20 @@ def validate(eq: str):
     return "!" + eq
 
 
-def solve(eq: str, dp=3):
-    """
-    Solves the equation `eq`.
-    `dp` refers to how many decimal points are to be shown, defaulting to 3.
-    ---
-    This section deals with parentheses by picking the innermost pair and performing calc() on its contents,
-    returning the answer to the same string. This is repeated until no parentheses are left. calc() is performed once more at the end to account for a lack of
-    parentheses in the total equation.
+def solve(eq: str, dp=3) -> str:
+    """Solves the equation `eq`. `dp` refers to how many decimal points are to be shown, defaulting to 3.\n          
+    
+    - -
+    Parameters:
+        - `(str) eq`: expression to be solved
+        - `(int) dp = 3`: decimal places to use (optional)
+    - -
+    Returns:
+        - `(str)`: the result of the given expression
+    - -
+    This function deals with parentheses by picking the innermost pair and performing `calc()` on its contents,
+    returning the answer to the same string. This is repeated until no parentheses are left. `calc()` is performed once 
+    more at the end to account for a lack of parentheses in the total equation.
     
     e.g.: 8/7^2+5*(8-3)
     `solve()` starts by finding the first closed bracket [")"] and moving backwards until it finds its opening pair. From there, it takes the substring within 
@@ -213,7 +229,7 @@ def solve(eq: str, dp=3):
         
     One final caveat is the event in which the equation contains a substring similar to 'a-b^c'. It was stated above that 'b' should be made to be negative in 
     the case of '8-3*4', but given that '^' is the highest precedence operator, the numbers it uses must be prioritised over negation. As a result, any 
-    substring 'a-b^c' does not pre-negate the value 'b' to avoid misinterpreting the equation. 
+    substring 'a-b^c' does not pre-negate the value 'b' to avoid misinterpreting the equation.   
     """
 
     eq = eq.replace(" ", "")  # remove whitespace
@@ -256,8 +272,18 @@ def solve(eq: str, dp=3):
         return final
 
 
-def normalise(eq: str):
-    """Takes in a valid equation and normalises it, allowing it to work with calc()"""
+def normalise(eq: str) -> str:
+    """Normalises the expression `eq`\n          
+    
+    - -
+    Parameters:
+        - `(str) eq`: the expression to be normalised
+    - -
+    Returns:
+        - `(str)`: the result of the normalisation, which may or may not have passed
+    - -
+    Takes in a valid equation and normalises it, allowing it to work with `calc()`
+    """
 
     for i in range(len(eq)):
         if i < len(eq) - 3:
@@ -326,12 +352,19 @@ def normalise(eq: str):
 
 
 def calc(equation: str) -> str:
-    """Separates the expression into two arrays, calculates the expression and returns the result.\n
-
+    """Separates the expression into two arrays, calculates the expression and returns the result.\n          
+    
+    - -
+    Parameters:
+        - `(str) equation`: the expression to be calculated
+    - -
+    Returns:
+        - `(str)`: the result of the calculation, which may or may not have passed
+    - -
     The algorithm forms two arrays, one with the values to be calculated with, and one with
     the operators. It then collapses the `nums` array by applying each operator in `ops` according to the 
     order of precedence laid out by the array `oper`. It then returns the last and only value in the array, as all
-    other values have since been removed.
+    other values have since been removed.  
     """
 
     nums = []  # numbers in equation

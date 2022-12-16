@@ -33,8 +33,16 @@ def check_exit(s):
         raise CancelOperation
 
 
-def check_dd(mat):
-    """Check if the given matrix is diagonally dominant"""
+def check_dd(mat:list[list[int]]) -> bool:
+    """Check if the given matrix is diagonally dominant\n
+    
+    - -
+    Parameters:
+        - `(list[list[int]]) mat`: matrix to check
+    - -
+    Returns:
+        - `(bool)`: _description_
+    """
     for r in range(len(mat)):
         s = 0
         for c in range(len(mat[r])):
@@ -46,6 +54,7 @@ def check_dd(mat):
 
 
 def gs_input():
+    
     while True:
         print("Enter \"q\" at any point to quit.")
 
@@ -101,8 +110,18 @@ def gs_input():
         gauss_seidel(mat, ig, sltns, iters)
 
 
-def gauss_seidel(a, x, b, iters):
-    """Take in a matrix `a`, initial guesses `x`, and the solutions `b` to the matrix `a`, and print out a formatted layout of its calculation with `iters` iterations."""
+def gauss_seidel(a:list[list[int]], x:list[int], b:list[int], iters:int):
+    """Print out a Gauss-Seidel iteration of the matrix `a` starting with vector `x`\n          
+    
+    - -
+    Parameters:
+        - `(list[list[int]]) a`: matrix to iterate over
+        - `(list[int]) x`: starting points
+        - `(list[int]) b`: solutions to `a`
+        - `(int) iters`: number of iterations to perform
+    - -
+    Take in a matrix `a`, initial guesses `x`, and the solutions `b` to the matrix `a`, and print out a formatted layout of its calculation with `iters` iterations.
+    """
 
     a2 = ""
     # calculation, taken from https://www.geeksforgeeks.org/gauss-seidel-method/

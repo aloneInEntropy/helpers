@@ -3,15 +3,17 @@ import calcGUI as gfc
 import gaussSeidel as gs
 import matrixMult as mm
 import bpm
+import ipm
 from auxi import *
 
 
 intro_txt = """
-To start, please select a calculator mode [1-4]:
+To start, please select a calculator mode [1-5]:
     1. General Calculator
     2. Gauss-Seidel Matrix Iterator
     3. Matrix Multiplier
     4. Basic Power Method Iterator
+    5. Inverse Power Method Iterator
 Or enter 'q' to quit.
 """
 
@@ -53,6 +55,8 @@ def main():
                 mm.start()
             case 4:
                 bpm.start()
+            case 5:
+                ipm.start()
             case _:
                 print("Invalid choice, please try again")
 

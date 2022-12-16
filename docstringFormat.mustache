@@ -1,0 +1,21 @@
+{{summaryPlaceholder}}\n          
+
+{{#argsExist}}
+- -
+Parameters:
+{{#args}}
+    - `({{typePlaceholder}}) {{var}}`: {{descriptionPlaceholder}}
+{{/args}}
+{{#kwargs}}
+    - `({{typePlaceholder}}) {{var}} = {{&default}}`: {{descriptionPlaceholder}} (optional)
+{{/kwargs}}
+- -
+{{/argsExist}}
+{{#returnsExist}}
+Returns:
+{{#returns}}
+    - `({{typePlaceholder}})`: {{descriptionPlaceholder}}
+{{/returns}}
+- -
+{{/returnsExist}}
+{{descriptionPlaceholder}}  

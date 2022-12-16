@@ -1,20 +1,20 @@
-"""Basic Power Method. Calculating the largest eigenvalue and its eigenvector in a matrix."""
+"""Inverse Power Method. Calculating the smallest eigenvalue and its eigenvector in a matrix."""
 
 from auxi import *
 from numpy import dot
+from numpy import linalg as la
 
 def main():
     start()
     pass
     
 def start():
-    print("Welcome to my Basic Power Method calculator! You will need to enter two matrices here, " +
+    print("Welcome to my Inverse Power Method calculator! You will need to enter two matrices here, " +
     "with both matrices having the same number of rows and \nthe second matrix having only 1 column.\n" +
     "If either of these are not true, the program will reset.\n")
     
     iterate_bpm()
     
-
 def iterate_bpm():
     """Iterate over the given matrices and calculate the eigenvalues and eigenvectors for them."""
     
@@ -27,9 +27,13 @@ def iterate_bpm():
         ev = 0 # dominant eigenvalue
         iters = input("How many iterations? ")
         check_exit(iters)
+        
+        # invert matrix
+        mat = la.inv(mat)
 
         prevX = x1
         it = 0
+        ev = 0
         while it < int(iters):
             if it > 0: 
                 print(transitionMatrices(tX, newX, '{:.20f}'.format(ev), "/ " + str(ev) + " ", "= x" + str(it+1)))
@@ -46,7 +50,7 @@ def iterate_bpm():
             
             it += 1
         print(transitionMatrices(tX, newX, '{:.20f}'.format(ev), "/ " + str(ev) + " ", "= x" + str(it+1)))
-        print("Maximum eigenvalue:", ev)
+        print("Minimum eigenvalue:", 1/ev)
     except InvalidInputException:
         print("Invalid input")
     except CancelOperation:
