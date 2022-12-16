@@ -9,7 +9,9 @@ Files added currently:
     - Takes in an expression by keyboard and solves it. Works with brackets, loge(x) and e^x expressions
     - Also has an accompanying GUI, in calcGUI.py
   - Basic Power Method (bpm.py)
-    - Takes in 2 matrices by input and prints out the values at each iteration (steps not yet formatted).
+    - Takes in 2 matrices by input and calculates the largest eigenvalue, and prints out the values at each iteration.
+  - Inverse Power Method (ipm.py)
+    - Takes in 2 matrices by input and calculates the smallest eigenvalue, and prints out the values at each iteration.
   - Matrix Multiplier (matrixMult.py)
     - Takes in 2 matrices and multiplies them, printing out the result
   - Main Hub (IGPC.py)
